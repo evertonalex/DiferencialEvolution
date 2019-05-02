@@ -1,4 +1,5 @@
 import numpy as np
+import math
 import matplotlib.pyplot as plt
 
 # cons_fnDeJongs = lambda x: sum(x**2)/len(x)
@@ -7,8 +8,10 @@ cons_limites = [(-5-12, 5.12), (-5.12, 5.12), (-5.12, 5.12)]
 cons_mutacao = 0.7
 cons_cross = 0.7
 cons_populacaoTamanho = 15
-cons_iteracoes=200
+cons_iteracoes=500
 results = []
+
+bestList = [] #grafico
 
 def de(fnDeJongs, limites, mutacao, cross, populacaoTamanho, iteracoes):
     dimensoes = len(limites)
@@ -45,6 +48,9 @@ def de(fnDeJongs, limites, mutacao, cross, populacaoTamanho, iteracoes):
                     best_idx = j
                     best = trial_denorm
         # yield best, fitness[best_idx]
+
+        bestList.append(min(best))
+
         results.append(np.argmin(best))
 
         print("best %s fitness %s " % (best, fitness[best_idx]))
@@ -57,5 +63,20 @@ def de(fnDeJongs, limites, mutacao, cross, populacaoTamanho, iteracoes):
 
     # plt.show()
 
+########################################################################################################################
+#Standard deviation
+########################################################################################################################
+def standardDeviation(bestList):
+    print(bestList)
+    media = sum(bestList) / (len(bestList))
+    print("Média --> ", media)
+    quadrados = []
+    for i in range(len(bestList)):
+        quadrados.append((bestList[i]-media) ** 2)
+    somaQuadrados = sum(quadrados)
+    varianca = somaQuadrados / ((len(bestList)) - 1g)
+    return math.sqrt(varianca)
+
 if __name__ == '__main__':
     de(cons_fnDeJongs, cons_limites, cons_mutacao, cons_cross, cons_populacaoTamanho, cons_iteracoes)
+    print("DESVIO PADRAO ",standardDeviation(bestList))
