@@ -74,7 +74,7 @@ def standardDeviation(bestList):
     for i in range(len(bestList)):
         quadrados.append((bestList[i]-media) ** 2)
     somaQuadrados = sum(quadrados)
-    varianca = somaQuadrados / ((len(bestList)) - 1g)
+    varianca = somaQuadrados / ((len(bestList)) - 1)
     return math.sqrt(varianca)
 
 if __name__ == '__main__':
